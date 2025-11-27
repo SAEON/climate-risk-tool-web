@@ -116,7 +116,7 @@ function AppContent() {
         {/* SAEON & NRF Logo */}
         <div className="flex items-center">
           <img
-            src="/climate-tool/saeon.svg"
+            src="/climate-tool/saeon_logo.png"
             alt="SAEON - South African Environmental Observation Network & NRF"
             className="h-10 object-contain"
           />

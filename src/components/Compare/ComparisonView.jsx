@@ -65,7 +65,6 @@ const ComparisonView = ({ onMapsReady, searchHighlightedMunicipalityId = null })
     const fetchDataA = async () => {
       // Prevent duplicate fetches
       if (fetchingA.current) {
-        console.log('Scenario A fetch already in progress, skipping...');
         return;
       }
 
@@ -93,7 +92,6 @@ const ComparisonView = ({ onMapsReady, searchHighlightedMunicipalityId = null })
     const fetchDataB = async () => {
       // Prevent duplicate fetches
       if (fetchingB.current) {
-        console.log('Scenario B fetch already in progress, skipping...');
         return;
       }
 

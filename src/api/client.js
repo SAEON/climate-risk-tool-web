@@ -23,11 +23,6 @@ apiClient.interceptors.request.use(
 // Response interceptor
 apiClient.interceptors.response.use(
   (response) => {
-    // Check for cache header
-    const cacheStatus = response.headers['x-cache'];
-    if (cacheStatus) {
-      console.log(`[Cache ${cacheStatus}]`, response.config.url);
-    }
     return response;
   },
   (error) => {

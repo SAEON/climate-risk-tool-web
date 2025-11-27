@@ -2,7 +2,7 @@
 
 React-based climate risk mapping tool for South African municipalities with Leaflet visualization.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies
@@ -24,18 +24,29 @@ npm run lint
 npm run lint:fix
 ```
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Node.js v22.21.0+
 - Backend API running on `http://localhost:3000` (requires VPN for database access)
 - PostgreSQL 17.6 + PostGIS 3.6 (remote at 192.168.115.78:5432)
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 climate-risk-tool-web/
-├── public/
-│   └── index.html                      # HTML entry point
+├── public/                             # Static assets
+│   ├── favicon.ico                     # Browser favicon
+│   ├── favicon.svg                     # SVG favicon
+│   ├── favicon-96x96.png               # PNG favicon
+│   ├── apple-touch-icon.png            # iOS home screen icon
+│   ├── web-app-manifest-192x192.png    # PWA icon (192x192)
+│   ├── web-app-manifest-512x512.png    # PWA icon (512x512)
+│   ├── saeon_logo.png                  # SAEON/NRF logo (PNG)
+│   ├── saeon.svg                       # SAEON/NRF logo (SVG)
+│   └── site.webmanifest                # PWA manifest
+├── docs/                               # Documentation
+│   ├── COLOR_SCHEME_GUIDE.md           # Color scheme documentation
+│   └── Downscaled Climate Change Projections for SA v1.0.pdf
 ├── src/
 │   ├── api/                            # API service layer
 │   │   ├── client.js                   # Axios instance
@@ -43,12 +54,16 @@ climate-risk-tool-web/
 │   │   ├── indices.js                  # Climate indices endpoints
 │   │   └── municipalities.js           # Municipality endpoints
 │   ├── components/
+│   │   ├── Common/                     # Shared components
+│   │   │   ├── DataAttribution.jsx     # Data source attribution
+│   │   │   └── SectorTags.jsx          # Sector tags display
 │   │   ├── Map/                        # Map components
 │   │   │   ├── Map.jsx                 # Base Leaflet map
 │   │   │   ├── ClimateLayer.jsx        # GeoJSON climate layer
 │   │   │   └── Map.module.css
 │   │   ├── Controls/                   # UI controls
 │   │   │   ├── ScenarioSelector.jsx
+│   │   │   ├── ComparisonScenarioSelector.jsx
 │   │   │   ├── PeriodSelector.jsx
 │   │   │   ├── IndexSelector.jsx
 │   │   │   ├── MunicipalitySearch.jsx
@@ -57,8 +72,9 @@ climate-risk-tool-web/
 │   │   │   └── Legend.jsx
 │   │   ├── InfoPanel/                  # Municipality info
 │   │   │   └── InfoPanel.jsx
-│   │   └── Compare/                    # Comparison view
-│   │       └── ComparisonView.jsx
+│   │   ├── Compare/                    # Comparison view
+│   │   │   └── ComparisonView.jsx
+│   │   └── Layout/                     # Layout components
 │   ├── context/                        # React contexts
 │   │   ├── ClimateContext.jsx          # Global climate state
 │   │   └── IndicesContext.jsx          # Climate indices metadata
@@ -68,38 +84,42 @@ climate-risk-tool-web/
 │   ├── App.jsx                         # Main application
 │   ├── main.jsx                        # React entry point
 │   └── index.css                       # Global styles
+├── index.html                          # HTML entry point
 ├── .env                                # Environment variables
+├── .gitignore                          # Git ignore rules
+├── LICENSE                             # MIT License
 ├── vite.config.js                      # Vite configuration
 ├── tailwind.config.js                  # Tailwind CSS configuration
 ├── postcss.config.js                   # PostCSS configuration
-└── package.json                        # Dependencies & scripts
+├── package.json                        # Dependencies & scripts
+└── package-lock.json                   # Dependency lock file
 ```
 
-## 🎨 Features
+## Features
 
 ### Core Features
-- ✅ Interactive Leaflet map centered on South Africa
-- ✅ Dynamic GeoJSON rendering for 213 municipalities
-- ✅ Color-coded climate anomaly visualization
-- ✅ Scenario selection (SSP1-2.6, SSP2-4.5, SSP3-7.0, SSP5-8.5)
-- ✅ Time period selection (2021-2040, 2041-2060, 2081-2100)
-- ✅ Climate index selection (27 indices across 3 categories)
-- ✅ Municipality details on click
-- ✅ Dynamic legend with statistics
+- Interactive Leaflet map centered on South Africa
+- Dynamic GeoJSON rendering for 213 municipalities
+- Color-coded climate anomaly visualization
+- Scenario selection (SSP1-2.6, SSP2-4.5, SSP3-7.0, SSP5-8.5)
+- Time period selection (2021-2040, 2041-2060, 2081-2100)
+- Climate index selection (27 indices across 3 categories)
+- Municipality details on click
+- Dynamic legend with statistics
 
 ### Advanced Features
-- ✅ **Side-by-side scenario comparison** for scenario analysis
-- ✅ **Municipality search** with auto-zoom functionality
-- ✅ Synchronized period and index across comparison views
-- ✅ Category-based index filtering (Precipitation, Temperature, Duration)
+- **Side-by-side scenario comparison** for scenario analysis
+- **Municipality search** with auto-zoom functionality
+- Synchronized period and index across comparison views
+- Category-based index filtering (Precipitation, Temperature, Duration)
 
 ### Data Integration
-- ✅ Leverages full API response metadata
-- ✅ Auto-fetch on configuration changes
-- ✅ Cache header tracking (X-Cache: HIT/MISS)
-- ✅ Proper handling of climate anomalies (deviations from 1995-2014 baseline)
+- Leverages full API response metadata
+- Auto-fetch on configuration changes
+- Cache header tracking (X-Cache: HIT/MISS)
+- Proper handling of climate anomalies (deviations from 1995-2014 baseline)
 
-## 🌍 Data Coverage
+## Data Coverage
 
 - **Municipalities**: 213 (South African local municipalities)
 - **Scenarios**: 4 SSP scenarios
@@ -110,7 +130,7 @@ climate-risk-tool-web/
   - 3 Duration/Variability indices
 - **Total Records**: 2,544 climate data points
 
-## 🎯 API Endpoints Used
+## API Endpoints Used
 
 ```javascript
 // Climate Data (GeoJSON)
@@ -132,7 +152,7 @@ GET /api/cache/stats
 POST /api/cache/clear
 ```
 
-## 🎨 Color Mapping
+## Color Mapping
 
 Uses Chroma.js with scientifically-appropriate color schemes:
 - **RdBu_r**: Red-Blue reversed (Red = worse)
@@ -145,24 +165,27 @@ Anomaly directions:
 - `negative_warming`: Negative = warming
 - `positive_warming`: Positive = warming
 
-## 🖥️ Browser Support
+## Browser Support
 
 - Chrome/Edge 90+
 - Firefox 88+
 - Safari 14+
 
-## 📝 Environment Variables
+## Environment Variables
 
 ```env
-VITE_API_BASE_URL=http://localhost:3000
-VITE_MAP_CENTER_LAT=-29.0
-VITE_MAP_CENTER_LNG=25.0
-VITE_MAP_ZOOM=6
+# API Configuration
+VITE_API_BASE_URL=/climate-tool/api
+
+# Map Configuration
+VITE_MAP_CENTER_LAT=-28.75
+VITE_MAP_CENTER_LNG=22.9
+VITE_MAP_ZOOM=4.7
 VITE_MAP_MIN_ZOOM=5
 VITE_MAP_MAX_ZOOM=12
 ```
 
-## 🔧 Tech Stack
+## Tech Stack
 
 - **Frontend**: React 18.3.1
 - **Build Tool**: Vite 7.1.12
@@ -172,7 +195,7 @@ VITE_MAP_MAX_ZOOM=12
 - **HTTP Client**: Axios 1.7.2
 - **Export**: html2canvas + jsPDF (for future export feature)
 
-## 🚧 Future Enhancements
+## Future Enhancements
 
 - [ ] Map export to PNG/PDF
 - [ ] Provincial-level aggregation
@@ -181,10 +204,10 @@ VITE_MAP_MAX_ZOOM=12
 - [ ] Mobile-optimized layout
 - [ ] Accessibility improvements (ARIA labels, keyboard navigation)
 
-## 📄 License
+## License
 
 MIT
 
-## 👥 Author
+## Author
 
 Climate Risk Tool Development Team

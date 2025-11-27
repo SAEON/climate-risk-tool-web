@@ -27,3 +27,6 @@ dist-ssr
 .env.local
 .env.*.local
 .env
+
+# Claude Code
+.claude/
